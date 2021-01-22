@@ -1,0 +1,7 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="tax_calculation_rate" resource="default" engine="innodb" comment="Tax Calculation Rate">
+        <column xsi:type="decimal" name="from_total" scale="4" precision="12" unsigned="false" nullable="true" comment="From Total"/>
+        <column xsi:type="decimal" name="to_total" scale="4" precision="12" unsigned="false" nullable="true" comment="To Total"/>
+    </table>
+</schema>

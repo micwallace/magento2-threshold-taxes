@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Tax\Block\Adminhtml\Rate\Form" type="WallaceIT\ThresholdTaxes\Block\Adminhtml\Rate\Form" />
+
+    <type name="Magento\Tax\Model\Calculation\Rate\Converter">
+        <plugin name="WallaceIT_ThresholdTaxes::rate_save" type="WallaceIT\ThresholdTaxes\Plugin\Model\Calculation\Rate\Converter" />
+    </type>
+</config>

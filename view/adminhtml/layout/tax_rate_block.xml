@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.catalog.product.set.grid.columnSet">
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.from_total" as="from_total">
+                <arguments>
+                    <argument name="header" xsi:type="string" translate="true">From Subtotal</argument>
+                    <argument name="index" xsi:type="string">from_total</argument>
+                    <argument name="type" xsi:type="string">number</argument>
+                    <argument name="default" xsi:type="string">0.00</argument>
+                    <argument name="renderer" xsi:type="string">Magento\Tax\Block\Adminhtml\Rate\Grid\Renderer\Data</argument>
+                    <argument name="column_css_class" xsi:type="string">col-price</argument>
+                    <argument name="header_css_class" xsi:type="string">col-price</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.to_total" as="to_total">
+                <arguments>
+                    <argument name="header" xsi:type="string" translate="true">To Subtotal</argument>
+                    <argument name="index" xsi:type="string">to_total</argument>
+                    <argument name="type" xsi:type="string">number</argument>
+                    <argument name="default" xsi:type="string">0.00</argument>
+                    <argument name="renderer" xsi:type="string">Magento\Tax\Block\Adminhtml\Rate\Grid\Renderer\Data</argument>
+                    <argument name="column_css_class" xsi:type="string">col-price</argument>
+                    <argument name="header_css_class" xsi:type="string">col-price</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

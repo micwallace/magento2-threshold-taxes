@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Tax\Model\Calculation" type="WallaceIT\ThresholdTaxes\Model\Calculation"/>
+    <preference for="Magento\Tax\Model\ResourceModel\Calculation" type="WallaceIT\ThresholdTaxes\Model\ResourceModel\Calculation"/>
+    <preference for="Magento\Tax\Model\TaxRateCollection" type="WallaceIT\ThresholdTaxes\Model\TaxRateCollection"/>
+
+    <type name="Magento\Tax\Model\Sales\Total\Quote\Tax">
+        <plugin name="WallaceIT_ThresholdTaxes::apply_threshold_flag" type="WallaceIT\ThresholdTaxes\Plugin\Model\Sales\Total\Quote\Tax" />
+    </type>
+
+</config>
