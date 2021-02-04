@@ -5,19 +5,19 @@ namespace WallaceIT\ThresholdTaxes\Model\ResourceModel;
 class Calculation extends \Magento\Tax\Model\ResourceModel\Calculation {
 
     /**
-     * @var \Magento\Checkout\Model\Session
+     * @var \Magento\Framework\Registry
      */
-    private $checkoutSession;
+    private $_registry;
 
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Checkout\Model\Session $checkoutSession,
+        \Magento\Framework\Registry $registry,
         $connectionName = null
     )
     {
-        $this->checkoutSession = $checkoutSession;
+        $this->_registry = $registry;
 
         parent::__construct($context, $taxData, $storeManager, $connectionName);
     }
@@ -186,28 +186,20 @@ class Calculation extends \Magento\Tax\Model\ResourceModel\Calculation {
         //$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         //$logger = $objectManager->get('Psr\Log\LoggerInterface');
 
-        $quote = $this->checkoutSession->getQuote();
+        $subtotal = $this->_registry->registry(\WallaceIT\ThresholdTaxes\Model\Calculation::THRESHOLD_TAX_APPLY);
 
-        if ($quote->hasItems()){
-
-            $subtotal = $quote->getShippingAddress()->getSubtotalWithDiscount();
-
-            //$logger->info("Subtotal: ".$subtotal);
-
+        if ($subtotal) {
             $rates = $this->_ratesCache[$cacheKey];
 
-            foreach ($rates as $key => $rate){
+            foreach ($rates as $key => $rate) {
 
                 if (!$rate['from_total'] && !$rate['to_total'])
                     continue;
 
-                if ($subtotal < $rate['from_total'] || $subtotal > $rate['to_total']){
+                if ($subtotal < $rate['from_total'] || $subtotal > $rate['to_total']) {
                     unset($rates[$key]);
                 }
             }
-
-            //$logger->info("Rates: ");
-            //$logger->info(print_r($rates, true));
 
             return $rates;
         }

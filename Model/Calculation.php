@@ -16,11 +16,6 @@ class Calculation extends \Magento\Tax\Model\Calculation {
 
     public const THRESHOLD_TAX_APPLY = "THRESHOLD_TAX_APPLY";
 
-    /**
-     * @var \Magento\Checkout\Model\Session
-     */
-    private $checkoutSession;
-
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
@@ -39,13 +34,10 @@ class Calculation extends \Magento\Tax\Model\Calculation {
         SearchCriteriaBuilder $searchCriteriaBuilder,
         FilterBuilder $filterBuilder,
         TaxClassRepositoryInterface $taxClassRepository,
-        \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     )
     {
-        $this->checkoutSession = $checkoutSession;
-
         parent::__construct($context, $registry, $scopeConfig, $taxConfig, $storeManager, $customerSession, $customerFactory, $classesFactory, $resource, $customerAccountManagement, $customerGroupManagement, $customerGroupRepository, $customerRepository, $priceCurrency, $searchCriteriaBuilder, $filterBuilder, $taxClassRepository, $resourceCollection, $data);
     }
 
@@ -56,11 +48,7 @@ class Calculation extends \Magento\Tax\Model\Calculation {
         if (!$this->_registry->registry(self::THRESHOLD_TAX_APPLY))
             return $cacheKey;
 
-        $quote = $this->checkoutSession->getQuote();
-
-        if ($quote->hasItems()){
-            $cacheKey .= '|'.$quote->getShippingAddress()->getSubtotalWithDiscount();
-        }
+        $cacheKey .= '|'.$this->_registry->registry(self::THRESHOLD_TAX_APPLY);
 
         return $cacheKey;
     }

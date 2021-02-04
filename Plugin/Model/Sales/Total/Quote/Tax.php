@@ -25,7 +25,7 @@ class Tax {
         \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment,
         \Magento\Quote\Model\Quote\Address\Total $total
     ){
-        $this->registry->register(\WallaceIT\ThresholdTaxes\Model\Calculation::THRESHOLD_TAX_APPLY, true);
+        $this->registry->register(\WallaceIT\ThresholdTaxes\Model\Calculation::THRESHOLD_TAX_APPLY, $quote->getBaseSubtotalWithDiscount());
 
         return [$quote, $shippingAssignment, $total];
     }
